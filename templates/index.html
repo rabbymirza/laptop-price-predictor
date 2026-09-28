@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>Laptop Price Predictor</h1>
+        <p class="subtitle">ML model based on the provided Colab notebook</p>
+
+        {% if not has_model %}
+        <div class="alert">
+            <strong>Model file missing:</strong> Put <code>pipe.joblib</code> inside the <code>model</code> folder.
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="alert error">{{ error }}</div>
+        {% endif %}
+
+        {% if prediction is not none %}
+        <div class="result">
+            <span>Predicted Price</span>
+            <strong>{{ "{:,.2f}".format(prediction) }}</strong>
+        </div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="grid">
+                <label>
+                    Company
+                    <select name="Company" required>
+                        <option value="">Select</option>
+                        {% for x in ["Acer","Apple","Asus","Chuwi","Dell","Fujitsu","Google","HP","Huawei","Lenovo","LG","Mediacom","Microsoft","MSI","Razer","Samsung","Toshiba","Vero","Xiaomi"] %}
+                        <option value="{{ x }}">{{ x }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+
+                <label>
+                    Type
+                    <select name="TypeName" required>
+                        <option value="">Select</option>
+                        {% for x in ["2 in 1 Convertible","Gaming","Netbook","Notebook","Ultrabook","Workstation"] %}
+                        <option value="{{ x }}">{{ x }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+
+                <label>
+                    RAM (GB)
+                    <input type="number" name="Ram" min="1" required placeholder="8">
+                </label>
+
+                <label>
+                    Weight (kg)
+                    <input type="number" name="Weight" step="0.01" min="0.1" required placeholder="1.86">
+                </label>
+
+                <label>
+                    Inches
+                    <input type="number" name="Inches" step="0.1" min="1" required placeholder="15.6">
+                </label>
+
+                <label>
+                    Screen Resolution
+                    <input type="text" name="ScreenResolution" required placeholder="1920x1080">
+                </label>
+
+                <label>
+                    CPU
+                    <select name="Cpu" required>
+                        <option value="">Select</option>
+                        <option>Intel Core i3 6006U</option>
+                        <option>Intel Core i5 7200U</option>
+                        <option>Intel Core i5 8250U</option>
+                        <option>Intel Core i7 7500U</option>
+                        <option>Intel Core i7 7700HQ</option>
+                        <option>AMD Ryzen 5 2500U</option>
+                        <option>AMD Ryzen 7 2700U</option>
+                        <option>AMD A9-Series</option>
+                    </select>
+                </label>
+
+                <label>
+                    Memory
+                    <select name="Memory" required>
+                        <option value="">Select</option>
+                        <option>128GB SSD</option>
+                        <option>256GB SSD</option>
+                        <option>512GB SSD</option>
+                        <option>1TB HDD</option>
+                        <option>1TB SSD</option>
+                        <option>500GB HDD</option>
+                        <option>256GB SSD + 1TB HDD</option>
+                        <option>128GB SSD + 1TB HDD</option>
+                    </select>
+                </label>
+
+                <label>
+                    GPU
+                    <select name="Gpu" required>
+                        <option value="">Select</option>
+                        <option>Intel HD Graphics 620</option>
+                        <option>Intel UHD Graphics 620</option>
+                        <option>Nvidia GeForce GTX 1050</option>
+                        <option>Nvidia GeForce GTX 1060</option>
+                        <option>Nvidia GeForce MX150</option>
+                        <option>AMD Radeon R5 M430</option>
+                        <option>AMD Radeon RX 580</option>
+                    </select>
+                </label>
+
+                <label>
+                    Operating System
+                    <select name="OpSys" required>
+                        <option value="">Select</option>
+                        <option>Windows 10</option>
+                        <option>Windows 7</option>
+                        <option>Windows 10 S</option>
+                        <option>macOS</option>
+                        <option>Mac OS X</option>
+                        <option>Linux</option>
+                        <option>No OS</option>
+                    </select>
+                </label>
+            </div>
+
+            <button type="submit">Predict Price</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
