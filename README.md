@@ -1,3 +1,24 @@
+## 📁 Project Structure in FastAPI
+
+```text
+laptop-price-predictor/
+│
+├── api.py                  # FastAPI App (Prediction Backend)
+├── app.py                  # Flask App (Frontend UI)
+├── requirements.txt        # Dependencies list
+├── Dockerfile              # Container configuration
+├── .dockerignore           # Docker ignore file
+├── .gitignore              # Git ignore file
+│
+├── model/                  # ML Models
+│   ├── pipe.joblib
+│   └── df.joblib
+│
+├── templates/              # HTML Templates
+│   └── index.html
+│
+└── static/                 # CSS / JS Files
+    └── style.css
 # Laptop Price Predictor - Flask
 
 This project converts the provided Colab laptop-price ML model into a Flask web app.
